@@ -2,6 +2,17 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const axiosPromise = axios.get('https://api.github.com/users/alesslongaretti')
+
+  .then(results => {
+  console.log(results);
+  newcard(results);
+  })
+
+  .catch(err => {
+    console.log(err);
+    });
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -24,6 +35,7 @@
           user, and adding that card to the DOM.
 */
 
+
 const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
@@ -45,6 +57,39 @@ const followersArray = [];
 </div>
 
 */
+function newCard(followersArray) {
+
+  const card = document.createElement('div');
+  const cardImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const cardName = document.createElement('h3');
+  const cardUser = document.createElement('p');
+  const cardLocation = document.createElement('p');
+  const cardProfile = document.createElement('p');
+  const cardAddress = document.createElement('a');
+  const cardFollowers = document.createElement('p');
+  const cardFollowing = document.createElement('p');
+  const cardBio = document. createElement('p');
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  cardName.classList.add('name');
+  cardUser.classList.add('username');
+
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(cardName);
+  cardInfo.appendChild(cardUser);
+  cardInfo.appendChild(cardLocation);
+  cardInfo.appendChild(cardProfile);
+  cardInfo.appendChild(cardFollowers);
+  cardInfo.appendChild(cardFollowing);
+  cardInfo.appendChild(cardBio);
+  cardProfile.appendChild(cardAddress);
+
+return card;
+
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
