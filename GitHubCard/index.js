@@ -2,16 +2,21 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-const axiosPromise = axios.get('https://api.github.com/users/alesslongaretti')
 
-  .then(results => {
+const axiosPromise = axios.get('https://api.github.com/users/alesslongaretti')
+.then(results => {
   console.log(results);
-  newcard(results);
+  newCard(results);
+  
   })
 
-  .catch(err => {
-    console.log(err);
+  .catch(error => {
+    console.log(error);
     });
+
+
+
+
 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -36,7 +41,23 @@ const axiosPromise = axios.get('https://api.github.com/users/alesslongaretti')
 */
 
 
-const followersArray = [];
+const followersArray = [  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+
+  followersArray.forEach((user) => {
+    axios.get(`https://api.github.com/users/${user}`)
+    .then((result) => {
+      newCard(result);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  })
+
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -57,7 +78,7 @@ const followersArray = [];
 </div>
 
 */
-function newCard(followersArray) {
+function newCard(user) {
 
   const card = document.createElement('div');
   const cardImg = document.createElement('img');
@@ -71,10 +92,25 @@ function newCard(followersArray) {
   const cardFollowing = document.createElement('p');
   const cardBio = document. createElement('p');
 
+
+  // Class
   card.classList.add('card');
   cardInfo.classList.add('card-info');
   cardName.classList.add('name');
   cardUser.classList.add('username');
+
+  // Content
+  cardImg.src = user.data.avatar_url;
+  cardName.textContent = `Name: ${user.data.name}`;
+  cardUser.textContent = `Username: ${user.data.login}`;
+  cardLocation.textContent = `Location: ${user.data.location}`;
+  cardProfile.textContent = `Profile: `;
+  cardAddress.textContent = `Link: ${user.data.html_url}`;
+  cardFollowers.textContent = `Followers: ${user.data.followers}`;
+  cardFollowing.textContent = `Following: ${user.data.following}`;
+  cardBio.textContent = `Bio: ${user.data.bio}`;
+
+
 
   card.appendChild(cardImg);
   card.appendChild(cardInfo);
@@ -86,10 +122,12 @@ function newCard(followersArray) {
   cardInfo.appendChild(cardFollowing);
   cardInfo.appendChild(cardBio);
   cardProfile.appendChild(cardAddress);
+  document.querySelector('.cards').appendChild(card);
 
 return card;
 
 }
+
 
 /* List of LS Instructors Github username's: 
   tetondan
